@@ -1,0 +1,37 @@
+.HEADER {background-color: 5D8AA8;
+		padding:20px;
+		text-align: center;}
+		
+.tail {background-color: white;
+		padding:20px;
+		text-align: center;}
+		
+.topnav {background-color: #BCD4E6;
+		overflow: hidden;}
+		
+.topnav a {float: left;
+			display: block;
+			color: #2233aa;
+			text-align: center;
+			padding:14px 16px;
+			text-decoration: none;}
+			
+.topnav a:hover {background-color: powderblue;
+				color:green;}	
+
+.column{
+	float: left;
+	width: 33.33%;
+	
+}	
+
+.row:after{content:"";
+	display:table;
+	clear:both;}
+.footer{background-color: #B9D9EB;
+		text-align: left;
+		}
+
+.food{background-color: #B9D9EB;
+		text-align: center;
+		}				
