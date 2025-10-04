@@ -8,11 +8,22 @@ from sympy import sympify, symbols, lambdify
 st.set_page_config(page_title="โปรแกรมแก้สมการโดยระเบียบวิธีแก้ตำแหน่งผิด", page_icon="🧮", layout="centered")
 st.title("🔢 โปรแกรมระเบียบวิธีแก้ตำแหน่งผิด (False Position Method)")
 
-col1, col2 = st.columns(2)
-    with col1:
-        st.image("./img/math.jpg", caption="Shirt Example", use_container_width=True)
-    with col2:
-        st.image("./img/math.jpg", caption="Sales Promotion", use_container_width=True)
+# สร้าง layout แบบ 1 คอลัมน์
+col1 = st.columns(1)[0]
+
+# แสดงภาพด้วย Markdown (เพื่อควบคุมขนาดและตำแหน่งกลาง)
+with col1:
+    st.markdown(
+        """
+        <div style='display:flex; justify-content:center;'>
+            <img src='img/math.jpg' width='900' height='520'
+                 style='border-radius:10px; object-fit:cover;'/>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+    st.caption("Shirt Example")
+
 
 st.write("ใส่สมการในรูปแบบที่ใช้ `x` เป็นตัวแปร เช่น `exp(x) - 3*x` หรือ `e**x - 3*x` นะครับ(~ o ​​¯▽¯) ~ o   " )
 
