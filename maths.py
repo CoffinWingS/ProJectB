@@ -9,8 +9,8 @@ st.set_page_config(page_title="โปรแกรมแก้สมการโ�
 st.title("🔢 โปรแกรมระเบียบวิธีแก้ตำแหน่งผิด (False Position Method)")
 
 col1= st.columns(1)
-with col1:
-st.image("./img/math.jpg", use_container_width=True)
+    with col1:
+    st.image("./img/math.jpg", use_container_width=True)
 
 st.write("ใส่สมการในรูปแบบที่ใช้ `x` เป็นตัวแปร เช่น `exp(x) - 3*x` หรือ `e**x - 3*x` นะครับ(~ o ​​¯▽¯) ~ o   " )
 
