@@ -10,9 +10,9 @@ st.title("🔢 โปรแกรมระเบียบวิธีแก้�
 
 col1, col2 = st.columns(2)
     with col1:
-        st.image("./img/shirt.jpg", caption="Shirt Example", use_container_width=True)
+        st.image("./img/math.jpg", caption="Shirt Example", use_container_width=True)
     with col2:
-        st.image("./img/sell.jpg", caption="Sales Promotion", use_container_width=True)
+        st.image("./img/math.jpg", caption="Sales Promotion", use_container_width=True)
 
 st.write("ใส่สมการในรูปแบบที่ใช้ `x` เป็นตัวแปร เช่น `exp(x) - 3*x` หรือ `e**x - 3*x` นะครับ(~ o ​​¯▽¯) ~ o   " )
 
