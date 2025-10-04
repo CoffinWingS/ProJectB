@@ -1,7 +1,7 @@
 import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
-from sympy import symbols, sympify, lambdify
+
 
 x = symbols("x")
 
