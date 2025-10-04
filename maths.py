@@ -1,5 +1,6 @@
 import streamlit as st
 import math
+import os
 from sympy import sympify, symbols, lambdify
 
 # -----------------------------
@@ -10,13 +11,13 @@ st.title("🔢 โปรแกรมระเบียบวิธีแก้�
 
 # สร้าง layout แบบ 1 คอลัมน์
 col1 = st.columns(1)[0]
-
+path = os.path.join(os.getcwd(), "img/math.jpg")
 # แสดงภาพด้วย Markdown (เพื่อควบคุมขนาดและตำแหน่งกลาง)
 with col1:
     st.markdown(
         """
         <div style='display:flex; justify-content:center;'>
-            <img src='./img/math.jpg' width='700' height='350'
+            <img src='./img/math.jpg' width='700' height='250'
                  style='border-radius:10px; object-fit:cover;'/>
         </div>
         """,
