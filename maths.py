@@ -102,11 +102,11 @@ if st.button("เริ่มคำนวณ"):
         plt.figure(figsize=(6,4))
         plt.axhline(0, color='gray', linestyle='--')
         plt.plot(X, Y, label='f(x)')
-        plt.scatter(df["C"], df["f(C)"], color='red', label='จุด C (แต่ละรอบ)')
+        plt.scatter(df["C"], df["f(C)"], color='red', label='Point C (each round)')
         plt.legend()
         plt.xlabel('x')
         plt.ylabel('f(x)')
-        plt.title('กราฟแสดงการหาค่ารากด้วยระเบียบวิธีแก้ตำแหน่งผิด')
+        plt.title('Graph showing the finding of roots using the method of correcting the wrong position')
         st.pyplot(plt)
 
     except Exception as e:
