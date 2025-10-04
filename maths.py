@@ -1,6 +1,5 @@
 import streamlit as st
 import math
-import os
 from sympy import sympify, symbols, lambdify
 
 # -----------------------------
@@ -11,18 +10,10 @@ st.title("🔢 โปรแกรมระเบียบวิธีแก้�
 
 # สร้าง layout แบบ 1 คอลัมน์
 col1 = st.columns(1)[0]
-path = os.path.join(os.getcwd(), "img/math.jpg")
+
 # แสดงภาพด้วย Markdown (เพื่อควบคุมขนาดและตำแหน่งกลาง)
 with col1:
-    st.markdown(
-        """
-        <div style='display:flex; justify-content:center;'>
-            <img src='./img/math.jpg' width='700' height='250'
-                 style='border-radius:10px; object-fit:cover;'/>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+    st.image("./img/math.jpg", caption="Shirt Example", use_container_width=True)
    
 st.write("ใส่สมการในรูปแบบที่ใช้ `x` เป็นตัวแปร เช่น `exp(x) - 3*x` หรือ `e**x - 3*x` นะครับ(~ o ​​¯▽¯) ~ o   " )
 
