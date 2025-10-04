@@ -1,85 +1,63 @@
+# maths.py
 import streamlit as st
-import numpy as np
-import matplotlib.pyplot as plt
+from sympy import symbols, sympify, lambdify
+import mpmath as mp
 
+st.set_page_config(page_title="Math Solver", page_icon="🧮", layout="centered")
 
-x = symbols("x")
+st.title("🧮 Root Finder Web App")
+st.write("ใส่สมการ เช่น `exp(x) - 3*x` หรือ `x**2 - 4` แล้วเลือกวิธีที่ต้องการ")
 
-# ฟังก์ชันสำหรับ parse สมการ
+x = symbols('x')
+
 def parse_function(expr_str):
     expr = sympify(expr_str)
-    f = lambdify(x, expr, modules=['numpy'])
-    df = lambdify(x, expr.diff(x), modules=['numpy'])
+    f = lambdify(x, expr, modules=['mpmath', 'math'])
+    df = lambdify(x, expr.diff(x), modules=['mpmath', 'math'])
     return f, df
 
-def bisection(f, a, b, tol=1e-6, max_iter=100):
-    fa, fb = f(a), f(b)
-    if fa * fb > 0:
-        return None, "f(a) และ f(b) ต้องมีเครื่องหมายต่างกัน", []
-    history = []
-    for i in range(max_iter):
-        c = (a+b)/2
-        fc = f(c)
-        history.append((i+1, c, fc))
-        if abs(fc) < tol or (b-a)/2 < tol:
-            return c, None, history
-        if fa * fc < 0:
-            b, fb = c, fc
-        else:
-            a, fa = c, fc
-    return c, "ไม่คอนเวอร์จ์ใน {} รอบ".format(max_iter), history
-
-def newton(f, df, x0, tol=1e-6, max_iter=100):
-    history = []
-    xn = x0
-    for i in range(max_iter):
-        fx = f(xn)
-        dfx = df(xn)
-        history.append((i+1, xn, fx))
-        if abs(fx) < tol:
-            return xn, None, history
-        if abs(dfx) < 1e-12:
-            return None, "อนุพันธ์ใกล้ศูนย์ Newton ล้มเหลว", history
-        xn = xn - fx/dfx
-    return xn, "ไม่คอนเวอร์จ์ใน {} รอบ".format(max_iter), history
-
-# ---------------- Streamlit UI -----------------
-st.title("🔢 Root Finder Web App")
-st.write("ใส่สมการที่มี x แล้วเลือกวิธีแก้")
-
-expr_str = st.text_input("สมการ (เช่น exp(x) - 3*x)", "exp(x) - 3*x")
-method = st.selectbox("เลือกวิธีแก้", ["Bisection", "Newton-Raphson"])
+method = st.selectbox("เลือกวิธี", ["Bisection", "Newton-Raphson"])
+expr_str = st.text_input("สมการ f(x) =", "exp(x) - 3*x")
+tol = st.number_input("Tolerance (ค่าความคลาดเคลื่อน)", value=1e-6, format="%.1e")
 
 f, df = parse_function(expr_str)
 
 if method == "Bisection":
     a = st.number_input("ค่าเริ่มต้น a", value=0.0)
     b = st.number_input("ค่าเริ่มต้น b", value=1.0)
-    if st.button("คำนวณ"):
-        root, err, hist = bisection(f, a, b)
-        if err:
-            st.error(err)
-        else:
-            st.success(f"Root ≈ {root:.6f}, f(root) ≈ {f(root):.2e}")
-            st.write("ตาราง Iterations:")
-            st.dataframe(hist, use_container_width=True)
 elif method == "Newton-Raphson":
-    x0 = st.number_input("ค่าเริ่มต้น x0", value=0.6)
-    if st.button("คำนวณ"):
-        root, err, hist = newton(f, df, x0)
-        if err:
-            st.error(err)
-        else:
-            st.success(f"Root ≈ {root:.6f}, f(root) ≈ {f(root):.2e}")
-            st.write("ตาราง Iterations:")
-            st.dataframe(hist, use_container_width=True)
+    x0 = st.number_input("ค่าเริ่มต้น x0", value=0.5)
 
-# Plot function
-st.write("### กราฟฟังก์ชัน")
-X = np.linspace(-2, 2, 400)
-Y = f(X)
-fig, ax = plt.subplots()
-ax.axhline(0, color='black', lw=1)
-ax.plot(X, Y, label=expr_str)
-ax.legend()
-st.pyplot(fig)
+if st.button("คำนวณ"):
+    try:
+        if method == "Bisection":
+            fa, fb = f(a), f(b)
+            if fa*fb > 0:
+                st.error("f(a) และ f(b) ต้องมีเครื่องหมายตรงข้าม!")
+            else:
+                for i in range(100):
+                    c = (a + b) / 2
+                    fc = f(c)
+                    if abs(fc) < tol or abs(b - a)/2 < tol:
+                        break
+                    if fa * fc < 0:
+                        b, fb = c, fc
+                    else:
+                        a, fa = c, fc
+                st.success(f"Root ≈ {c:.6f}  |  f(c) = {fc:.6e}  |  Iterations = {i}")
+        else:  # Newton
+            xn = x0
+            for i in range(100):
+                fx = f(xn)
+                dfx = df(xn)
+                if abs(dfx) < 1e-12:
+                    st.error("Derivative = 0, Newton หยุดการคำนวณ")
+                    break
+                xn1 = xn - fx/dfx
+                if abs(fx) < tol or abs(xn1 - xn) < tol:
+                    xn = xn1
+                    break
+                xn = xn1
+            st.success(f"Root ≈ {xn:.6f}  |  f(x) = {f(xn):.6e}  |  Iterations = {i}")
+    except Exception as e:
+        st.error(f"เกิดข้อผิดพลาด: {e}")
