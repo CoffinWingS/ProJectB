@@ -13,7 +13,7 @@ col1 = st.columns(1)[0]
 
 # แสดงภาพด้วย Markdown (เพื่อควบคุมขนาดและตำแหน่งกลาง)
 with col1:
-    st.image("./img/math.jpg", use_container_width=True)
+    st.image("./img/mathh.jpg", use_container_width=True)
    
 st.write("ใส่สมการในรูปแบบที่ใช้ `x` เป็นตัวแปร เช่น `exp(x) - 3*x` หรือ `e**x - 3*x` นะครับ(~ o ​​¯▽¯) ~ o   " )
 
