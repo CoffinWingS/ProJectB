@@ -16,7 +16,7 @@ with col1:
     st.markdown(
         """
         <div style='display:flex; justify-content:center;'>
-            <img src='img/math.jpg' width='900' height='520'
+            <img src='img/math.jpg' width='90' height='52'
                  style='border-radius:10px; object-fit:cover;'/>
         </div>
         """,
