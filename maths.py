@@ -13,8 +13,15 @@ col1 = st.columns(1)[0]
 
 # แสดงภาพด้วย Markdown (เพื่อควบคุมขนาดและตำแหน่งกลาง)
 with col1:
-    image = Image.open("./img/math.jpg")
-    st.image(image, caption="Shirt Example", width=700, output_format="auto")
+    st.markdown(
+        """
+        <div style='display:flex; justify-content:center;'>
+            <img src='./img/math.jpg' width='700' height='350'
+                 style='border-radius:10px; object-fit:cover;'/>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
    
 st.write("ใส่สมการในรูปแบบที่ใช้ `x` เป็นตัวแปร เช่น `exp(x) - 3*x` หรือ `e**x - 3*x` นะครับ(~ o ​​¯▽¯) ~ o   " )
 
